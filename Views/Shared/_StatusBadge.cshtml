@@ -1,0 +1,14 @@
+﻿@model object
+@{
+    // Works whether the backend uses a string ("Pending") or an enum (AppointmentStatus.Pending).
+    var status = Model?.ToString() ?? "";
+    var css = status.ToLowerInvariant() switch
+    {
+        "pending" => "status-pending",
+        "approved" => "status-approved",
+        "completed" => "status-completed",
+        "cancelled" => "status-cancelled",
+        _ => "status-unknown"
+    };
+}
+<span class="status-badge @css">@status</span>
