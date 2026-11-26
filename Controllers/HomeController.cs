@@ -15,6 +15,12 @@ namespace ClinicSystem.Controllers
             return View();
         }
 
+        // Privacy page (comes with the standard MVC template; the front-end team may delete it)
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
         // About page (ABT-1): the application description
         public IActionResult About()
         {
