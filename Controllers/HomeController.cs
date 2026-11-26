@@ -1,41 +1,37 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ClinicSystem.Models;
 
-namespace ClinicSystem.Controllers;
-
-public class HomeController : Controller
+namespace ClinicSystem.Controllers
 {
-    public IActionResult Index()
+    // Pages that everyone can open, even without logging in.
+    [AllowAnonymous]
+    public class HomeController : Controller
     {
-        return View();
+        // Home page
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        // About page (ABT-1): the application description
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        // Contact page (ABT-2): the authors and their contact details
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        // Shows an error page. (ErrorViewModel comes with the standard MVC project template.)
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
-
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
-
-#if DEBUG
-    // TEMP UI PREVIEW - remove when real login exists.
-    // Remembers which role you want to preview, using a cookie.
-    public IActionResult PreviewRole(string? role)
-    {
-        var allowed = new[] { "Patient", "Doctor", "ClinicStaff" };
-
-        if (role != null && allowed.Contains(role))
-            Response.Cookies.Append("previewRole", role);
-        else
-            Response.Cookies.Delete("previewRole");
-
-        return RedirectToAction("Index");
-    }
-#endif
 }
-
